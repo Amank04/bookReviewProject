@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Book Notes</h1>
+    </header>
+    <main>
+        <section class="books">
+            <h2>Books</h2>
+            <div class="sort">
+                <form id="sortForm" method="post" action="/sort">
+                    <label for="sort">Sort by:</label>
+                    <select id="sort" name="sort" onchange="submitForm()">
+                        <option value="select">-select-</option>
+                        <option value="recency">Recency</option>
+                        <option value="rating">Rating</option>
+                    </select>
+                </form>
+                
+
+                <a class="add-button" href="/add">Add book</a>
+
+            </div>
+            <ul>
+                <% items.forEach(item=> { %>
+                    <li>
+                        <div class="book">
+                            <div class="book-details">
+                                <h3>
+                                    <%=item.title %>
+                                </h3>
+                                <p>by
+                                    <%=item.author %>
+                                </p>
+                                <p>Date read:
+                                    <%=item.date_read%>
+                                </p>
+                                <p>How strongly I recommend it:
+                                    <%=item.rating %>
+                                </p>
+                                <p>
+                                    <%=item.notes %>
+                                </p>
+                                <a class="editbutton" href="/edit/<%=item.id %>">Edit</a>
+                                <a class="editbutton" href="/delete/<%=item.id %>">Delete</a>
+                            </div>
+
+                            <% if (item.images) { %>
+                                <!-- Display image if imageBuffer is available -->
+                                <img src="data:image/png;base64,<%= item.images.toString('base64')  %>" alt="<%= item.title %>">
+                              <% } %>
+
+                        </div>
+                    </li>
+                    <% }) %>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>©
+            <%=new Date().getFullYear() %>
+                Book Notes
+        </p>
+    </footer>
+</body>
+<script>
+      function submitForm() {
+        document.getElementById("sortForm").submit();
+    }
+</script>
+
+</html>

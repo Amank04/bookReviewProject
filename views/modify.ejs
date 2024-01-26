@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="/styles/editBook.css">
+</head>
+
+<body>
+    <header>
+        <h1>Book Notes</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Add Book</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="add-book">
+            <h2>Add Book</h2>
+            <% if(locals.item) { %>
+                <form id="editForm" method="post" action="/update/<%=item.id %>" enctype="multipart/form-data">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" value="<%=item.title %>" autocomplete="off" required>
+
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author" value="<%=item.author %>" autocomplete="off" required>
+
+                    <label for="date-read">Date Read:</label>
+                    <input type="date" id="date-read" name="date-read" value="<%=date_read %>" autocomplete="off" required>
+
+                    <label for="rating">Rating:</label>
+                    <input type="number" id="rating" name="rating" min="1" max="10" step="0.1" value="<%=item.rating %>" autocomplete="off" required>
+
+                    <label for="notes">Notes:</label>
+                    <textarea id="notes" name="notes" autocomplete="off" required><%=item.notes %>
+                    </textarea>
+
+                    <label for="photo">Photo:</label>
+                    <input type="file" id="photo" name="photo">
+
+                    <button type="submit">Add Book</button>
+                </form>
+                <% } else { %>
+                    <form id="editForm" method="post" action="/save" enctype="multipart/form-data">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" autocomplete="off" required>
+
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author" autocomplete="off" required>
+
+                        <label for="date-read">Date Read:</label>
+                        <input type="date" id="date-read" name="date-read" autocomplete="off" required>
+
+                        <label for="rating">Rating:</label>
+                        <input type="number" id="rating" name="rating" min="1" max="10" step="0.1" autocomplete="off" required>
+
+                        <label for="notes">Notes:</label>
+                        <textarea id="notes" name="notes" autocomplete="off" required></textarea>
+
+                        <label for="photo">Photo:</label>
+                        <input type="file" id="photo" name="photo">
+
+                        <button type="submit">Add Book</button>
+                    </form>
+                    <% } %>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Derek Sivers' Book Notes</p>
+    </footer>
+</body>
+
+</html>
