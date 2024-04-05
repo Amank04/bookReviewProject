@@ -3,22 +3,24 @@ import bodyParser from "body-parser";
 import moment from "moment";
 import pg from "pg";
 import multer from "multer";
+import env from "dotenv";
 
 
 const app = express();
 const port = 3000;
 
+env.config();
+
 // Set up multer storage
 const storage = multer.memoryStorage(); // Store the file in memory
 const upload = multer({ storage: storage });
 
-
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "bookReview",
-  password: , //write your database password here.
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
 });
 db.connect();
 
